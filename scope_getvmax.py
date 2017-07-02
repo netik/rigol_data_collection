@@ -17,11 +17,10 @@ print devices[0]['ip']
 scope = DS1054Z(devices[0]['ip'])
 print scope.idn
 
-# this actually sets the scale on the whole scope.
-#scope.set_channel_scale(1, 0.001, True)
-
 while 1 == 1:
- 
+
+    # collect vmin and vmax from the first two channels on the scope
+    # every 30 seconds.
     vmax1 = scope.get_channel_measurement(1,"vmax",type='CURRent')
     vmin1 = scope.get_channel_measurement(1,"vmin",type='CURRent')
     vmax2 = scope.get_channel_measurement(2,"vmax",type='CURRent')
@@ -31,5 +30,5 @@ while 1 == 1:
     print "%d,%s,%s,%s,%s" % (time.time() , vmin1, vmax2, vmin2, vmax2)
     print >> f, "%d,%s,%s,%s,%s" % (time.time() , vmin1, vmax1, vmin2, vmax2)
     f.close()
-#    print scope.get_waveform_samples('1', mode='NORMal')
+
     time.sleep(30)
